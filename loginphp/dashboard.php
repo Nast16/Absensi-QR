@@ -1,14 +1,19 @@
 <?php
 session_start();
 
-$username = $_SESSION['username'] ?? "User";
-$role = $_SESSION['role'] ?? "guest";
-
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
+
+$nama_raw = $_SESSION['fullname'] ?? "User";
+$role_raw = $_SESSION['role'] ?? "guest";
+
+/* format khusus tampilan */
+$nama_tampil = ucwords(strtolower($nama_raw));
+$role_tampil = ucfirst(strtolower($role_raw));
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -75,21 +80,28 @@ if (!isset($_SESSION['username'])) {
 <body>
   <nav class="navbar navbar-dark navbar-custom">
     <div class="container-fluid">
-      <span class="navbar-brand">Dashboard - <?= $username ?></span>
+      <span class="navbar-brand">
+        Dashboard - <?= htmlspecialchars($nama_tampil) ?>
+      </span>
       <a href="logout.php" class="btn btn-outline-light btn-sm">Logout</a>
     </div>
   </nav>
 
   <div class="dashboard-box mt-5">
-    <h3>Selamat datang, <?= $username ?>!</h3>
-    <p>Anda login sebagai <strong><?= $role ?></strong></p>
+    <h3>Selamat datang, <?= htmlspecialchars($nama_tampil) ?>!</h3>
+    <p>Anda login sebagai <strong><?= htmlspecialchars($role_tampil) ?></strong></p>
 
-    <?php if ($role == "dosen") : ?>
-        <a href="generateqr.php" class="btn btn-primary btn-custom">Generate QR Absen</a>
-    <?php elseif ($role == "mahasiswa") : ?>
-        <a href="scan.php" class="btn btn-success btn-custom">Scan QR untuk Absen</a>
+    <?php if ($role_raw === "dosen") : ?>
+        <a href="generateqr.php" class="btn btn-primary btn-custom">
+            Generate QR Absen
+        </a>
+    <?php elseif ($role_raw === "mahasiswa") : ?>
+        <a href="scan.php" class="btn btn-success btn-custom">
+            Scan QR untuk Absen
+        </a>
     <?php endif; ?>
   </div>
+
 
 </body>
 </html>

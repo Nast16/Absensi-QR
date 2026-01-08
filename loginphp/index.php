@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // ambil user dari database
     $stmt = $conn->prepare(
-        "SELECT id, username, password_hash, role 
+        "SELECT id, username, password_hash, role, fullname
          FROM users 
          WHERE username = ?"
     );
@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
+        $_SESSION['fullname'] = $user['fullname'];
         $_SESSION['role'] = $user['role'];
 
         // redirect setelah login
@@ -40,9 +41,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <!-- STYLE KAMU TETAP -->
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        input {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
         body {
             background: url('https://miro.medium.com/v2/resize:fit:1080/1*HExFW_w7riS578zus2z3bA.jpeg')
                 no-repeat center center fixed;
@@ -85,6 +104,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             border-radius: 8px;
             margin-bottom: 10px;
         }
+
+        @media (max-width: 480px) {
+        .login-box {
+            width: 100%;
+            max-width: 100%;
+            margin: 20px;
+            padding: 30px;
+        }
+
+        h2 {
+            font-size: 22px;
+        }
+
+        input, button {
+            padding: 14px;
+            font-size: 15px;
+        }
+    }
+
     </style>
 </head>
 

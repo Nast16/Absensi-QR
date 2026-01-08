@@ -96,23 +96,34 @@
         <form action="prosesdaftar.php" method="POST">
 
             <label>Nama Lengkap</label>
-            <input type="text" name="nama" placeholder="Masukkan nama lengkap" required>
+            <input type="text" name="nama" required>
 
             <label>Status</label>
-            <select name="status" required>
+            <select name="status" id="status" required onchange="toggleIDField()">
                 <option value="">-- Pilih Status --</option>
                 <option value="dosen">Dosen</option>
                 <option value="mahasiswa">Mahasiswa</option>
             </select>
 
+            <div id="npmField" style="display:none;">
+                <label>NPM</label>
+                <input type="text" name="npm" placeholder="Masukkan NPM">
+            </div>
+
+            <div id="nipField" style="display:none;">
+                <label>NIP</label>
+                <input type="text" name="nip" placeholder="Masukkan NIP">
+            </div>
+
             <label>Username</label>
-            <input type="text" name="username" placeholder="Buat username" required>
+            <input type="text" name="username" required>
 
             <label>Password</label>
-            <input type="password" name="password" placeholder="Buat password" required>
+            <input type="password" name="password" required>
 
             <button type="submit" name="submit">Daftar Sekarang</button>
         </form>
+
 
         <div class="footer-text">
             © 2025 Sistem Informasi Kampus
@@ -120,4 +131,15 @@
     </div>
 
 </body>
+
+<script>
+function toggleIDField() {
+    const status = document.getElementById("status").value;
+    document.getElementById("npmField").style.display =
+        status === "mahasiswa" ? "block" : "none";
+    document.getElementById("nipField").style.display =
+        status === "dosen" ? "block" : "none";
+}
+</script>
+
 </html>

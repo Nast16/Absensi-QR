@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body>
+  <h3>Test Camera</h3>
+  <video id="v" autoplay playsinline style="width:100%;max-width:480px;border:1px solid #ccc"></video>
+  <pre id="err" style="color:red"></pre>
+  <script>
+    async function start() {
+      const video = document.getElementById('v');
+      const err = document.getElementById('err');
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { ideal: "environment" } }, audio: false
+        });
+        video.srcObject = stream;
+      } catch (e) {
+        console.error(e);
+        err.textContent = e.name + ': ' + (e.message || e.toString());
+      }
+    }
+    start();
+  </script>
+</body>
+</html>

@@ -95,6 +95,11 @@ $role_tampil = ucfirst(strtolower($role_raw));
         <a href="generateqr.php" class="btn btn-primary btn-custom">
             Generate QR Absen
         </a>
+
+        <a href="pilih_qr.php" class="btn btn-warning btn-custom">
+            Export Absensi
+        </a>
+
     <?php elseif ($role_raw === "mahasiswa") : ?>
         <a href="scan.php" class="btn btn-success btn-custom">
             Scan QR untuk Absen
